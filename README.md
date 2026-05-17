@@ -47,7 +47,6 @@ Python dependencies are installed from `pyproject.toml`:
 
 - `fastmcp`
 - `magika`
-- `semgrep`
 
 External CLI tools should be available in `PATH`:
 
