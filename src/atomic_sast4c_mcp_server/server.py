@@ -73,21 +73,6 @@ def _missing_command_error(command: str) -> dict | None:
     return missing_command_error(command, DEPENDENCY_CHECKS)
 
 
-@mcp.tool("check_dependencies")
-def check_dependencies(auto_install: bool = True, install_optional: bool = False):
-    """Check dependencies and install missing required CLI tools when auto_install is true.
-
-    Args:
-        auto_install: Whether to install missing required dependencies automatically
-        install_optional: Whether to also install optional dependencies automatically
-    """
-    return ensure_dependency_report(
-        DEPENDENCY_CHECKS,
-        auto_install=auto_install,
-        install_optional=install_optional,
-    )
-
-
 @mcp.tool("collect_files_types")
 def collect_files_types(analyzing_directory: str):
     """Collect all file types in the analyzing directory
@@ -418,15 +403,17 @@ def grep_code(analyzing_directory: str, pattern: str, context_range: int = 50):
 
 
 def main():
+    dependency_result = ensure_dependency_report(DEPENDENCY_CHECKS, auto_install=True)
     missing_required = [
-        item for item in _dependency_report()
+        item for item in dependency_result["dependencies"]
         if item["required"] and not item["available"]
     ]
     if missing_required:
         names = ", ".join(item["name"] for item in missing_required)
         print(
             f"atomic-sast-mcp-server dependency warning: missing {names}. "
-            "Use the check_dependencies MCP tool for details.",
+            "Automatic installation failed or could not find a usable installer. "
+            "Check startup logs for installation details.",
             file=sys.stderr,
         )
     mcp.run(transport="stdio", show_banner=False)

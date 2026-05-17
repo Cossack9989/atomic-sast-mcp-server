@@ -9,7 +9,7 @@ This project provides language-specific FastMCP servers that help LLM agents ins
 - C server: function, variable, macro, structure, call relationship, and grep helpers.
 - Rust server: function, struct, enum, trait, impl block, call site, and grep helpers.
 - Go server: function, method, struct, interface, type, call site, and grep helpers.
-- Dependency self-check via the `check_dependencies` MCP tool.
+- Startup dependency check with automatic installation attempts for missing required CLI tools.
 
 ## Run With uvx
 
@@ -54,15 +54,13 @@ External CLI tools should be available in `PATH`:
 - C only: `weggli`
 - Optional: `cargo` for Rust projects, `go` for Go projects. These language toolchains are checked only and are not installed by this MCP server.
 
-The `check_dependencies` MCP tool installs missing required CLI tools by default. It prefers user/tool-level installers first, and only uses platform-specific installers when applicable.
+At startup, each MCP server installs missing required CLI tools automatically. It prefers user/tool-level installers first, and only uses platform-specific installers when applicable.
 
 - `semgrep`: `pip`, `pip --break-system-packages`, `uv tool`, then `pipx`
 - `ast-grep`: `pip`, `pip --break-system-packages`, `npm`, `cargo`, then `brew` on macOS
 - `rg`: `apt`, `cargo`, `brew` on macOS, or Windows package managers
 - `weggli`: `cargo`, then `brew` on macOS
 - `cargo` / `go`: checked only, never auto-installed
-
-To only check without installing, call `check_dependencies(auto_install=false)`.
 
 ## Build
 
