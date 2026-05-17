@@ -1,0 +1,11 @@
+rules:
+  - id: get-structure-definition
+    patterns:
+      - pattern-either:
+          - pattern: |
+              struct $STRUCTURE {};
+          - pattern: |
+              typedef struct {} $STRUCTURE;
+    message: "grep structure definition"
+    languages: [c]
+    severity: INFO

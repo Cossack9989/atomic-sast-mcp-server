@@ -1,0 +1,9 @@
+rules:
+  - id: get-macro-definition
+    patterns:
+      - pattern-either:
+          - pattern: |
+              #define $MACRO $BODY
+    message: "grep macro definition"
+    languages: [c]
+    severity: INFO

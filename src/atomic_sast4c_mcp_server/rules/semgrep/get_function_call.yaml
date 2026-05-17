@@ -1,0 +1,19 @@
+rules:
+  - id: get-function-call
+    patterns:
+      - pattern-either:
+          - pattern: |
+              static $TYPE $CALLER ( ... ) {
+                ...
+                $CALLEE( ... );
+                ...
+              }
+          - pattern: |
+              static $TYPE $CALLER(...) {
+                ...
+                return $CALLEE(...);
+                ...
+              }
+    message: "get all caller-callee relationship"
+    languages: [c]
+    severity: INFO

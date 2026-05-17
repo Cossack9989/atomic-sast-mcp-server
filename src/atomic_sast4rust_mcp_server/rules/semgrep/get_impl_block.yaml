@@ -1,0 +1,15 @@
+rules:
+  - id: get-rust-impl-block
+    patterns:
+      - pattern-either:
+          - pattern: |
+              impl $TYPE {
+                ...
+              }
+          - pattern: |
+              impl $TRAIT for $TYPE {
+                ...
+              }
+    message: "grep rust impl block"
+    languages: [rust]
+    severity: INFO

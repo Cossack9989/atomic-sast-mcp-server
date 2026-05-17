@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "atomic-sast-mcp-server"
+version = "0.1.1"
+description = "FastMCP servers for local atomic SAST analysis of C, Rust, and Go projects."
+requires-python = ">=3.10"
+dependencies = [
+    "fastmcp>=3.3.1",
+    "magika>=1.0.3",
+    "semgrep>=1.163.0",
+]
+
+[project.optional-dependencies]
+c = ["semgrep>=1.163.0"]
+rust = ["semgrep>=1.163.0"]
+go = ["semgrep>=1.163.0"]
+py = []
+all = ["semgrep>=1.163.0"]
+
+[project.scripts]
+atomic-sast-mcp-server = "atomic_sast4c_mcp_server.server:main"
+atomic-sast4c-mcp-server = "atomic_sast4c_mcp_server.server:main"
+atomic-sast4rust-mcp-server = "atomic_sast4rust_mcp_server.server:main"
+atomic-sast4go-mcp-server = "atomic_sast4go_mcp_server.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["atomic_sast_mcp_common*", "atomic_sast4c_mcp_server*", "atomic_sast4rust_mcp_server*", "atomic_sast4go_mcp_server*"]
+
+[tool.setuptools.package-data]
+atomic_sast4c_mcp_server = ["rules/semgrep/*.yaml"]
+atomic_sast4rust_mcp_server = ["rules/semgrep/*.yaml"]
+atomic_sast4go_mcp_server = ["rules/semgrep/*.yaml"]

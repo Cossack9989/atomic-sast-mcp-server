@@ -1,0 +1,21 @@
+rules:
+  - id: get-function-definition
+    patterns:
+      - pattern-either:
+          - pattern: |
+              $TYPE $FUNCTION (...) {
+                ...
+              }
+          - pattern: |
+              static $TYPE $FUNCTION (...) {
+                ...
+              }
+    message: "grep function definition"
+    languages: [c]
+    severity: INFO
+  - id: get-function-definition-regex
+    message: "grep function definition by regex"
+    languages: [ regex ]
+    severity: INFO
+    patterns:
+      - pattern-regex: \s+$FUNCTION\([\s\S]+\};

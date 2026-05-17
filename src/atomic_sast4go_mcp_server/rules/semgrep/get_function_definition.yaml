@@ -1,0 +1,15 @@
+rules:
+  - id: get-go-function-definition
+    patterns:
+      - pattern-either:
+          - pattern: |
+              func $FUNCTION(...) {
+                ...
+              }
+          - pattern: |
+              func (...) $FUNCTION(...) {
+                ...
+              }
+    message: "grep go function or method definition"
+    languages: [go]
+    severity: INFO

@@ -1,0 +1,23 @@
+rules:
+  - id: get-rust-function-definition
+    patterns:
+      - pattern-either:
+          - pattern: |
+              fn $FUNCTION(...) {
+                ...
+              }
+          - pattern: |
+              pub fn $FUNCTION(...) {
+                ...
+              }
+          - pattern: |
+              async fn $FUNCTION(...) {
+                ...
+              }
+          - pattern: |
+              pub async fn $FUNCTION(...) {
+                ...
+              }
+    message: "grep rust function definition"
+    languages: [rust]
+    severity: INFO

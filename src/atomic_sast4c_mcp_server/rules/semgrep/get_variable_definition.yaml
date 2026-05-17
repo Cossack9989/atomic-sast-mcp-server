@@ -1,0 +1,7 @@
+rules:
+  - id: get_variable_definition
+    languages: [c]
+    message: "Found variable definition"
+    severity: INFO
+    pattern: |
+      $TYPE $VAR_NAME = $VALUE;

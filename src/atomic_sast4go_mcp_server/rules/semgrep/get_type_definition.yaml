@@ -1,0 +1,17 @@
+rules:
+  - id: get-go-type-definition
+    patterns:
+      - pattern-either:
+          - pattern: |
+              type $TYPE struct {
+                ...
+              }
+          - pattern: |
+              type $TYPE interface {
+                ...
+              }
+          - pattern: |
+              type $TYPE $ALIAS
+    message: "grep go type definition"
+    languages: [go]
+    severity: INFO

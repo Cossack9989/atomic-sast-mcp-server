@@ -1,0 +1,31 @@
+rules:
+  - id: get-rust-item-definition
+    patterns:
+      - pattern-either:
+          - pattern: |
+              struct $ITEM {
+                ...
+              }
+          - pattern: |
+              pub struct $ITEM {
+                ...
+              }
+          - pattern: |
+              enum $ITEM {
+                ...
+              }
+          - pattern: |
+              pub enum $ITEM {
+                ...
+              }
+          - pattern: |
+              trait $ITEM {
+                ...
+              }
+          - pattern: |
+              pub trait $ITEM {
+                ...
+              }
+    message: "grep rust item definition"
+    languages: [rust]
+    severity: INFO
