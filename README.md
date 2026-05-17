@@ -52,7 +52,17 @@ External CLI tools should be available in `PATH`:
 
 - Common: `semgrep`, `ast-grep`, `rg`
 - C only: `weggli`
-- Optional: `cargo` for Rust projects, `go` for Go projects
+- Optional: `cargo` for Rust projects, `go` for Go projects. These language toolchains are checked only and are not installed by this MCP server.
+
+The `check_dependencies` MCP tool installs missing required CLI tools by default. It prefers user/tool-level installers first, and only uses platform-specific installers when applicable.
+
+- `semgrep`: `pip`, `pip --break-system-packages`, `uv tool`, then `pipx`
+- `ast-grep`: `pip`, `pip --break-system-packages`, `npm`, `cargo`, then `brew` on macOS
+- `rg`: `apt`, `cargo`, `brew` on macOS, or Windows package managers
+- `weggli`: `cargo`, then `brew` on macOS
+- `cargo` / `go`: checked only, never auto-installed
+
+To only check without installing, call `check_dependencies(auto_install=false)`.
 
 ## Build
 

@@ -11,7 +11,7 @@ from typing import Literal
 from fastmcp import FastMCP
 from magika import Magika
 
-from atomic_sast_mcp_common import dependency_report, missing_command_error
+from atomic_sast_mcp_common import dependency_report, ensure_dependency_report, missing_command_error
 
 
 mcp = FastMCP("Local-Atomic-SAST-Rust")
@@ -31,7 +31,7 @@ DEPENDENCY_CHECKS = [
         "type": "cli",
         "required": True,
         "command": "semgrep",
-        "install_hint": "Installed automatically from pyproject.toml; ensure the semgrep command is on PATH.",
+        "install_hint": "Install semgrep CLI and ensure semgrep is on PATH.",
     },
     {
         "name": "ast-grep",
@@ -198,13 +198,18 @@ def _astgrep_or_semgrep(
 
 
 @mcp.tool("check_dependencies")
-def check_dependencies():
-    """Check whether Python packages and CLI tools required by this MCP are available."""
-    report = _dependency_report()
-    return {
-        "ok": all(item["available"] for item in report if item["required"]),
-        "dependencies": report,
-    }
+def check_dependencies(auto_install: bool = True, install_optional: bool = False):
+    """Check dependencies and install missing required CLI tools when auto_install is true.
+
+    Args:
+        auto_install: Whether to install missing required dependencies automatically
+        install_optional: Whether to also install optional dependencies automatically
+    """
+    return ensure_dependency_report(
+        DEPENDENCY_CHECKS,
+        auto_install=auto_install,
+        install_optional=install_optional,
+    )
 
 
 @mcp.tool("collect_files_types")
