@@ -1,0 +1,199 @@
+tests/test_c_mcp_tools.py
+  83cfbbbd8ef37afc 1-159 gitai:{"mixed_line_ranges":[],"operations":[{"operation_id":"6a0968eb90377be69ee9066c","tool_type":"agent","tool_id":"apply_patch","line_ranges":[{"Range":[1,159]}]}]}
+.github/workflows/python-package.yml
+  83cfbbbd8ef37afc 13,18,21-40 gitai:{"mixed_line_ranges":[],"operations":[{"operation_id":"6a0968eb90377be69ee9066c","tool_type":"agent","tool_id":"apply_patch","line_ranges":[{"Single":13},{"Single":18},{"Range":[21,40]}]}]}
+pyproject.toml
+  83cfbbbd8ef37afc 21-24 gitai:{"mixed_line_ranges":[],"operations":[{"operation_id":"6a0968eb90377be69ee9066c","tool_type":"agent","tool_id":"apply_patch","line_ranges":[{"Range":[21,24]}]}]}
+tests/test_rust_mcp_tools.py
+  83cfbbbd8ef37afc 1-106 gitai:{"mixed_line_ranges":[],"operations":[{"operation_id":"6a0968eb90377be69ee9066c","tool_type":"agent","tool_id":"apply_patch","line_ranges":[{"Range":[1,106]}]}]}
+tests/test_go_mcp_tools.py
+  83cfbbbd8ef37afc 1-125 gitai:{"mixed_line_ranges":[],"operations":[{"operation_id":"6a0968eb90377be69ee9066c","tool_type":"agent","tool_id":"apply_patch","line_ranges":[{"Range":[1,125]}]}]}
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "59bbacf9c79f02e169996f2064a834bae42ddc30",
+  "prompts": {
+    "83cfbbbd8ef37afc": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a0937c590377be69ee9006b",
+        "model": "gpt-5.5__dev"
+      },
+      "human_author": "C0ss4ck <c0ss4ck9989@gmail.com>",
+      "messages": [],
+      "total_additions": 417,
+      "total_deletions": 23,
+      "accepted_lines": 416,
+      "overriden_lines": 0
+    }
+  },
+  "attestation_metadata": {
+    ".github/workflows/python-package.yml": [
+      {
+        "hash": "83cfbbbd8ef37afc",
+        "line_ranges": [
+          {
+            "Single": 13
+          },
+          {
+            "Single": 18
+          },
+          {
+            "Range": [
+              21,
+              40
+            ]
+          }
+        ],
+        "mixed_line_ranges": [],
+        "operations": [
+          {
+            "operation_id": "6a0968eb90377be69ee9066c",
+            "tool_type": "agent",
+            "tool_id": "apply_patch",
+            "line_ranges": [
+              {
+                "Single": 13
+              },
+              {
+                "Single": 18
+              },
+              {
+                "Range": [
+                  21,
+                  40
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "pyproject.toml": [
+      {
+        "hash": "83cfbbbd8ef37afc",
+        "line_ranges": [
+          {
+            "Range": [
+              21,
+              24
+            ]
+          }
+        ],
+        "mixed_line_ranges": [],
+        "operations": [
+          {
+            "operation_id": "6a0968eb90377be69ee9066c",
+            "tool_type": "agent",
+            "tool_id": "apply_patch",
+            "line_ranges": [
+              {
+                "Range": [
+                  21,
+                  24
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tests/test_c_mcp_tools.py": [
+      {
+        "hash": "83cfbbbd8ef37afc",
+        "line_ranges": [
+          {
+            "Range": [
+              1,
+              159
+            ]
+          }
+        ],
+        "mixed_line_ranges": [],
+        "operations": [
+          {
+            "operation_id": "6a0968eb90377be69ee9066c",
+            "tool_type": "agent",
+            "tool_id": "apply_patch",
+            "line_ranges": [
+              {
+                "Range": [
+                  1,
+                  159
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tests/test_go_mcp_tools.py": [
+      {
+        "hash": "83cfbbbd8ef37afc",
+        "line_ranges": [
+          {
+            "Range": [
+              1,
+              125
+            ]
+          }
+        ],
+        "mixed_line_ranges": [],
+        "operations": [
+          {
+            "operation_id": "6a0968eb90377be69ee9066c",
+            "tool_type": "agent",
+            "tool_id": "apply_patch",
+            "line_ranges": [
+              {
+                "Range": [
+                  1,
+                  125
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tests/test_rust_mcp_tools.py": [
+      {
+        "hash": "83cfbbbd8ef37afc",
+        "line_ranges": [
+          {
+            "Range": [
+              1,
+              106
+            ]
+          }
+        ],
+        "mixed_line_ranges": [],
+        "operations": [
+          {
+            "operation_id": "6a0968eb90377be69ee9066c",
+            "tool_type": "agent",
+            "tool_id": "apply_patch",
+            "line_ranges": [
+              {
+                "Range": [
+                  1,
+                  106
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "remote_transcripts": {
+    "83cfbbbd8ef37afc": {
+      "tool": "trae",
+      "conversation_id": "6a0937c590377be69ee9006b",
+      "session_id": "6a0937c590377be69ee9006b",
+      "status": "remote_only",
+      "message": "Remote transcript resolution is not implemented yet for TRAE prompts."
+    }
+  }
+}
