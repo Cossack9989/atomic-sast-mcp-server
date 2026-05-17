@@ -1,4 +1,5 @@
 import importlib.util
+import logging
 import shutil
 import subprocess
 import sys
@@ -9,6 +10,14 @@ from typing import Any
 DependencySpec = dict[str, Any]
 DependencyReport = dict[str, Any]
 InstallPlan = dict[str, Any]
+
+logger = logging.getLogger("atomic-sast-mcp.dependencies")
+if not logger.handlers:
+    handler = logging.StreamHandler(sys.stderr)
+    handler.setFormatter(logging.Formatter("%(levelname)s:%(name)s:%(message)s"))
+    logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+logger.propagate = False
 
 
 def dependency_report(dependencies: Sequence[DependencySpec]) -> list[DependencyReport]:
@@ -123,12 +132,20 @@ def install_missing_dependencies(
             "installed": False,
             "commands": [],
         }
+        logger.info("Dependency %s is missing; attempting installation.", dependency["name"])
         for raw_plan in install_plans or []:
             plan = _normalize_install_plan(raw_plan)
             install_command = plan["command"]
             platforms = plan.get("platforms")
             current_platform = _current_platform()
             if platforms and current_platform not in platforms:
+                logger.info(
+                    "Skipping installer for %s on %s: %s is only supported on %s.",
+                    dependency["name"],
+                    current_platform,
+                    install_command,
+                    ", ".join(sorted(platforms)),
+                )
                 attempt["commands"].append(
                     {
                         "command": install_command,
@@ -140,6 +157,11 @@ def install_missing_dependencies(
 
             executable = install_command[0]
             if not (shutil.which(str(executable)) or str(executable) == sys.executable):
+                logger.info(
+                    "Skipping installer for %s because %s is not available.",
+                    dependency["name"],
+                    executable,
+                )
                 attempt["commands"].append(
                     {
                         "command": install_command,
@@ -149,6 +171,7 @@ def install_missing_dependencies(
                 )
                 continue
 
+            logger.info("Installing %s with command: %s", dependency["name"], install_command)
             result = subprocess.run(
                 install_command,
                 check=False,
@@ -168,7 +191,21 @@ def install_missing_dependencies(
                 checker_ok = not checker or importlib.util.find_spec(checker) is not None
                 if command_ok and checker_ok:
                     attempt["installed"] = True
+                    logger.info("Installed dependency %s successfully.", dependency["name"])
                     break
+                logger.warning(
+                    "Installer for %s exited successfully but dependency is still unavailable.",
+                    dependency["name"],
+                )
+            else:
+                logger.warning(
+                    "Failed to install dependency %s with command %s; return code %s.",
+                    dependency["name"],
+                    install_command,
+                    result.returncode,
+                )
+        if not attempt["installed"]:
+            logger.warning("Dependency %s remains unavailable after installation attempts.", dependency["name"])
         attempts.append(attempt)
     return attempts
 
