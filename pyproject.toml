@@ -18,6 +18,10 @@ rust = []
 go = []
 py = []
 all = []
+test = [
+    "pytest>=8.0.0",
+    "flake8>=7.0.0",
+]
 
 [project.scripts]
 atomic-sast-mcp-server = "atomic_sast4c_mcp_server.server:main"
